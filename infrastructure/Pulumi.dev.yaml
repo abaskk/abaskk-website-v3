@@ -1,2 +1,4 @@
 config:
+  abaskk-website-v3:repositoryToken:
+    secure: AAABAPbcqxk1/7e0SNa4Y6qQ/oSei4JjVYqlao/XrGQwvEVp1WeUM42V9NPnxeRJYAsu31XcggGWeP0EgloGKrVr9u7x4vJUo/iXqsOJ1hcVEcuM4QhegOXS9wtmWdQYorRomTwmZ/GKJ610DPDz/ndurM2NdTXq/njxQhA=
   azure-native:location: WestUS2

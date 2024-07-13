@@ -7,3 +7,23 @@ import * as website from "@pulumi/azure-native/web/staticSite";
 // Create an Azure Resource Group
 const resourceGroup = new resources.ResourceGroup("abaskk-website-rg");
 
+const config = new pulumi.Config();
+const repositoryToken = config.requireSecret("repositoryToken");
+
+const staticSite = new website.StaticSite("abaskk-frontend", {
+    branch: "master",
+    buildProperties: {
+        apiLocation: "",
+        appArtifactLocation: "frontend/dist",
+        appLocation: "frontend",
+    },
+    name: "abaskk-website",
+    repositoryToken: repositoryToken,
+    repositoryUrl: "https://github.com/abaskk/abaskk-website-v3",
+    resourceGroupName: resourceGroup.name,
+    sku: {
+        name: "Free",
+        tier: "Free",
+    },
+});
+
