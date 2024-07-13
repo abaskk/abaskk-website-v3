@@ -14,8 +14,8 @@ const staticSite = new website.StaticSite("abaskk-frontend", {
     branch: "master",
     buildProperties: {
         apiLocation: "",
-        appArtifactLocation: "frontend/dist",
-        appLocation: "frontend",
+        //appArtifactLocation: "dist",
+        appLocation: "frontend"
     },
     name: "abaskk-website",
     repositoryToken: repositoryToken,
