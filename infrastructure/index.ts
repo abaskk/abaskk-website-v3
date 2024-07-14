@@ -13,7 +13,7 @@ const repositoryToken = config.requireSecret("repositoryToken");
 const staticSite = new website.StaticSite("abaskk-frontend", {
     branch: "master",
     buildProperties: {
-        apiLocation: "backend/api",
+        apiLocation: "api",
         appArtifactLocation: "dist",
         appLocation: "frontend"
     },
