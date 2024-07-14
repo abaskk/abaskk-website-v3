@@ -4,7 +4,7 @@ import { data } from "../tempData/data";
 
 export async function infoTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
-    return {body: JSON.parse(data)};
+    return { jsonBody: JSON.parse(data) };
 };
 
 app.http('info', {
