@@ -19,7 +19,7 @@ const App = () =>{
             },
         });
 
-        const allInfo = await api.get(`https://happy-smoke-05563211e.5.azurestaticapps.net/api/info`)
+        const allInfo = await api.get(`${backendUrl}/api/info`)
 
         setUserInfo(allInfo.data)
         setLoad(false)

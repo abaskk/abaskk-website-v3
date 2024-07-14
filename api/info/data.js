@@ -1,4 +1,5 @@
-export const data: string = `{
+export const data  = `
+{
 	"name": "Amruth",
 	"year": "Third",
 	"resume_link": "",
