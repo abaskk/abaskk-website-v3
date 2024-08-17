@@ -2,6 +2,7 @@ import Home from './components/Home.jsx'
 import Login from './components/Login.jsx'
 import Admin from './components/Admin.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import NotFound from './components/404.jsx'
 import { useEffect, useState } from 'react'
 import { Routes,Route } from "react-router-dom";
 import axios from "axios"
@@ -46,6 +47,7 @@ const App = () =>{
                     </ProtectedRoute>
                 } 
             />
+            <Route path="*" element={<NotFound />}/>
         </Routes>
     )
 }
