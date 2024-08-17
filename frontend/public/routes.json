@@ -3,10 +3,6 @@
       {
         "route": "/api/*",
         "serve": "/api"
-      },
-      {
-        "route": "/*",
-        "serve": "/index.html"
       }
     ]
   }
