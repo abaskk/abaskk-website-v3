@@ -19,10 +19,10 @@ const Login = () => {
           });
           const response = await api.post(`${backendUrl}/api/login`,{password:pass})
           const loginData = response.data
-          if (loginData === "invalid"){
+          if (loginData.result === "invalid"){
             setErrMsg("Invalid Credentials")
           }else{
-            localStorage.setItem("jwtToken", loginData);
+            localStorage.setItem("jwtToken", loginData.token);
             navigate("/admin")
           }
 

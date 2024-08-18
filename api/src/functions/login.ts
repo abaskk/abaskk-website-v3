@@ -9,14 +9,17 @@ export async function loginTrigger(request: HttpRequest, context: InvocationCont
 
     let requestBody = await request.json() as LoginRequestBody;
     const saltedPass = process.env.SALTED_PASS;
+    if(!saltedPass){
+        return { jsonBody: "could not access salted pass" }
+    }
     const match = await bcrypt.compare(requestBody.password, saltedPass);
     let responseBody: LoginResponseBody = 
     {
-        data: "invalid",
+        result: "invalid",
         token: ""
     }
     if (match){
-        responseBody.data = "valid"
+        responseBody.result = "valid"
         responseBody.token = jwtGenerateAccessToken(requestBody.password);
     }
     return { jsonBody: responseBody }

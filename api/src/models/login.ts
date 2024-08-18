@@ -4,6 +4,6 @@ export interface LoginRequestBody {
 }
 
 export interface LoginResponseBody {
-    data: string;
+    result: string;
     token: string;
 }
