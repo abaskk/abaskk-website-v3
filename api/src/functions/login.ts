@@ -12,7 +12,13 @@ export async function loginTrigger(request: HttpRequest, context: InvocationCont
     if(!saltedPass){
         return { jsonBody: "could not access salted pass" }
     }
-    const match = await bcrypt.compare(requestBody.password, saltedPass);
+    let match: boolean;
+    try{
+        match = await bcrypt.compare(requestBody.password, saltedPass);
+    }catch{
+        return { jsonBody: "bcrypt compare failed" }
+    }
+    
     let responseBody: LoginResponseBody = 
     {
         result: "invalid",
