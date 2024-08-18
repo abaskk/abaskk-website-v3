@@ -29,7 +29,7 @@ export async function loginTrigger(request: HttpRequest, context: InvocationCont
         try{
             responseBody.token = jwtGenerateAccessToken(requestBody.password);
         }catch{
-            return { jsonBody: "could not generate jwt" }
+            return { jsonBody: `could not generate jwt ${process.env.JWT_SECRET}` }
         }
         
     }
