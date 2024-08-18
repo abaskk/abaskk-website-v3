@@ -26,7 +26,12 @@ export async function loginTrigger(request: HttpRequest, context: InvocationCont
     }
     if (match){
         responseBody.result = "valid"
-        responseBody.token = jwtGenerateAccessToken(requestBody.password);
+        try{
+            responseBody.token = jwtGenerateAccessToken(requestBody.password);
+        }catch{
+            return { jsonBody: "could not generate jwt" }
+        }
+        
     }
     return { jsonBody: responseBody }
  
