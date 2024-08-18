@@ -4,7 +4,12 @@ import * as process from 'process';
 export async function loginTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
     const jwtSecret = process.env.DUMMY;
-    return { body: jwtSecret };
+    context.log(`${jwtSecret}`);
+    if (jwtSecret) {
+        return { body: "GOOD" };
+    }
+    return {body: "bad"};
+    
 };
 
 app.http('login', {
