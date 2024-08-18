@@ -8,33 +8,21 @@ export async function loginTrigger(request: HttpRequest, context: InvocationCont
     context.log(`Http function processed request for url "${request.url}"`);
 
     let requestBody = await request.json() as LoginRequestBody;
-    const saltedPass = process.env.SALTED_PASS;
-    if(!saltedPass){
-        return { jsonBody: "could not access salted pass" }
-    }
-    let match: boolean;
-    try{
-        match = await bcrypt.compare(requestBody.password, saltedPass);
-    }catch{
-        return { jsonBody: "bcrypt compare failed" }
-    }
+    const saltedPass: string = process.env.SALTED_PASS;
+    const match: boolean = await bcrypt.compare(requestBody.password, saltedPass);
     
     let responseBody: LoginResponseBody = 
     {
         result: "invalid",
         token: ""
     }
+
     if (match){
         responseBody.result = "valid"
-        try{
-            responseBody.token = jwtGenerateAccessToken(requestBody.password);
-        }catch{
-            return { jsonBody: `could not generate jwt ${process.env.JWT_SECRET}` }
-        }
-        
+        responseBody.token = jwtGenerateAccessToken();
     }
+
     return { jsonBody: responseBody }
- 
 };
 
 app.http('login', {
