@@ -8,11 +8,16 @@ export async function permissionsTrigger(request: HttpRequest, context: Invocati
     const authHeader: string | null = request.headers.get("Authorization");
     let result: PermissionsResponseBody = { authenticated: false }
     if (!authHeader){
-        return { jsonBody: result };
+        return { jsonBody: "auth Header not found" };
     }
-    const jwtToken: string = authHeader.split(" ")[1];
-    result.authenticated = jwtVerifyAccessToken(jwtToken);
-    return { jsonBody: result };
+    try{
+        const jwtToken: string = authHeader.split(" ")[1];
+        result.authenticated = jwtVerifyAccessToken(jwtToken);
+        return { jsonBody: result };
+    }catch{
+        return { jsonBody: "jwt code error" };
+    }
+
 };
 
 app.http('has-permission', {
