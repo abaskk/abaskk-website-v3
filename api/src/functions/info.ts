@@ -11,7 +11,7 @@ export async function infoTrigger(request: HttpRequest, context: InvocationConte
     const containerClient = blobServiceClient.getContainerClient("data");
     const blockBlobClient = containerClient.getBlockBlobClient("info.json");
     const downloadResponse = await blockBlobClient.download(0);
-    const downloaded = await streamToText(downloadResponse)
+    const downloaded = await streamToText(downloadResponse.readableStreamBody);
     return { jsonBody: JSON.parse(downloaded) };
 };
 
