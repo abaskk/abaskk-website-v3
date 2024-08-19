@@ -23,7 +23,7 @@ export async function permissionsTrigger(request: HttpRequest, context: Invocati
 };
 
 app.http('has-permission', {
-    methods: ['GET'],
+    methods: ['POST'],
     authLevel: 'anonymous',
     handler: permissionsTrigger
 });
