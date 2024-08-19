@@ -23,8 +23,9 @@ const ProtectedRoute = ({children}) =>{
                 },
             });
 
-            const checkCookie = await api.get(`${backendUrl}/api/has_permission`)
-            setAdmin(checkCookie.data)
+            const checkCookie = await api.get(`${backendUrl}/api/has-permission`)
+            const result = checkCookie.data;
+            setAdmin(result.authenticated)
             setLoad(false)
 
         }catch(err){

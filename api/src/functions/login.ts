@@ -18,11 +18,11 @@ export async function loginTrigger(request: HttpRequest, context: InvocationCont
     }
 
     if (match){
-        responseBody.result = "valid"
+        responseBody.result = "valid";
         responseBody.token = jwtGenerateAccessToken();
     }
 
-    return { jsonBody: responseBody }
+    return { jsonBody: responseBody };
 };
 
 app.http('login', {
