@@ -15,7 +15,7 @@ export async function permissionsTrigger(request: HttpRequest, context: Invocati
         result.authenticated = jwtVerifyAccessToken(jwtToken);
         return { jsonBody: result };
     }catch{
-        return { jsonBody: "jwt code error" };
+        return { jsonBody: `jwt code error ${authHeader}` };
     }
 
 };

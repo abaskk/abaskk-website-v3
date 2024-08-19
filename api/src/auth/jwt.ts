@@ -9,7 +9,7 @@ export const jwtGenerateAccessToken = () => {
 
 export const jwtVerifyAccessToken = (token: string) => {
 
-    const decoded: string = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userName: string = decoded["username"];
     if (userName != process.env.JWT_USERNAME){
             return false;
