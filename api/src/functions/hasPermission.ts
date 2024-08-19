@@ -6,8 +6,8 @@ import { jwtVerifyAccessToken } from "../auth/jwt";
 
 export async function permissionsTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     const authHeader: string | null = request.headers.get("Authorization");
-    return { jsonBody: `jwt code error ${authHeader}` };
-    /*let result: PermissionsResponseBody = { authenticated: false }
+    //return { jsonBody: `jwt code error ${authHeader}` };
+    let result: PermissionsResponseBody = { authenticated: false }
     if (!authHeader){
         return { jsonBody: "auth Header not found" };
     }
@@ -17,7 +17,7 @@ export async function permissionsTrigger(request: HttpRequest, context: Invocati
         return { jsonBody: result };
     }catch{
         return { jsonBody: `jwt code error ${authHeader}` };
-    }*/
+    }
 
 };
 

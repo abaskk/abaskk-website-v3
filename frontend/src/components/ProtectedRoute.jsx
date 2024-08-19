@@ -18,7 +18,6 @@ const ProtectedRoute = ({children}) =>{
             const token = localStorage.getItem("jwtToken");
             const api = axios.create({
                 headers: {
-                    "Content-type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
             });

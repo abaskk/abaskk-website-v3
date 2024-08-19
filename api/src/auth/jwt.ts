@@ -1,9 +1,11 @@
 import * as jwt from 'jsonwebtoken';
 import { decode } from 'punycode';
+// 
 
 export const jwtGenerateAccessToken = () => {
     const userName: string = process.env.JWT_USERNAME;
-    return jwt.sign({ 'username': userName }, process.env.JWT_SECRET, { expiresIn: '6h' })
+    // https://stackoverflow.com/questions/77612816/azure-static-web-app-jwt-token-generation
+    return jwt.sign({ 'username': userName }, process.env.JWT_SECRET, { expiresIn: '6h', notBefore: 0 })
 }
 
 
