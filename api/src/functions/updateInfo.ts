@@ -4,6 +4,7 @@ import { PermissionsResponseBody } from "../models/permissions";
 import { UpdateInfoRequestBody, UpdateInfoResponseBody } from "../models/update";
 import axios from "axios";
 import { BlobServiceClient } from "@azure/storage-blob";
+import { jwtVerifyAccessToken } from "../auth/jwt";
 
 export async function updateDataTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     let requestBody = await request.json() as UpdateInfoRequestBody;
@@ -12,7 +13,7 @@ export async function updateDataTrigger(request: HttpRequest, context: Invocatio
         result: false,
         message: "unauthorized access"
     }
-    try{
+    /*try{
     const authMiddleWare = axios.create();
     const requestUrl = request.url;
     const authUrl = requestUrl.replace('/modify-data', '/has-permission');
@@ -24,6 +25,15 @@ export async function updateDataTrigger(request: HttpRequest, context: Invocatio
     }
     }catch (error){
         return { jsonBody: "auth part failed"};
+    }*/
+
+    if(!requestBody.token){
+        return { jsonBody: updateRes };
+    }
+
+    const verifyJwt = jwtVerifyAccessToken(requestBody.token);
+    if(!verifyJwt){
+        return { jsonBody: updateRes };
     }
 
     try{
