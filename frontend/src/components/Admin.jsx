@@ -14,11 +14,7 @@ const Admin = (props) => {
         e.preventDefault()
         const token = localStorage.getItem("jwtToken");
 
-        const api = axios.create({
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        });
+        const api = axios.create();
 
         try{
             JSON.parse(userInfo)
@@ -28,9 +24,9 @@ const Admin = (props) => {
 
         try{
 
-            const response = await api.post(`${backendUrl}/api/modify_data`,
-              {newJson:userInfo})
-            if(response.data === false){
+            const response = await api.post(`${backendUrl}/api/modify-data`, {newJson:userInfo, token: token})
+            const responseResult = response.data;
+            if(responseResult.result === false){
                 setErrMsg("Server write failed, try later")
             }else{
                 setErrMsg("Success!")
