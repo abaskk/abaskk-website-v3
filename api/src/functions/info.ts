@@ -1,10 +1,18 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 // import { info } from "console";
-import { data } from "../tempData/data";
+import { BlobServiceClient } from "@azure/storage-blob";
+import { streamToText } from "../utils/file"
 
 export async function infoTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
-    return { jsonBody: JSON.parse(data) };
+
+    const connectString: string = process.env.BLOB_CONNECTION_STRING!;
+    const blobServiceClient = BlobServiceClient.fromConnectionString(connectString);
+    const containerClient = blobServiceClient.getContainerClient("data");
+    const blockBlobClient = containerClient.getBlockBlobClient("info.json");
+    const downloadResponse = await blockBlobClient.download(0);
+    const downloaded = await streamToText(downloadResponse)
+    return { jsonBody: JSON.parse(downloaded) };
 };
 
 app.http('info', {
