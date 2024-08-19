@@ -18,11 +18,12 @@ const ProtectedRoute = ({children}) =>{
             const token = localStorage.getItem("jwtToken");
             const api = axios.create({
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    "Content-type": "application/json",
                 },
             });
-
-            const checkCookie = await api.get(`${backendUrl}/api/has-permission`)
+            
+            // changing to post to not deal with auth
+            const checkCookie = await api.post(`${backendUrl}/api/has-permission`, {token: `${token}`})
             const result = checkCookie.data;
             setAdmin(result.authenticated)
             setLoad(false)

@@ -1,22 +1,23 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 // import { info } from "console";
 import { data } from "../tempData/data";
-import { PermissionsResponseBody } from "../models/permissions";
+import { PermissionsRequestBody, PermissionsResponseBody } from "../models/permissions";
 import { jwtVerifyAccessToken } from "../auth/jwt";
 
 export async function permissionsTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
-    const authHeader: string | null = request.headers.get("Authorization");
-    //return { jsonBody: `jwt code error ${authHeader}` };
+    // const authHeader: string | null = request.headers.get("Authorization");
+    // return { jsonBody: `jwt code error ${authHeader}` };
+    let requestBody = await request.json() as PermissionsRequestBody;
+
     let result: PermissionsResponseBody = { authenticated: false }
-    if (!authHeader){
-        return { jsonBody: "auth Header not found" };
+    if (!requestBody.token){
+        return { jsonBody: "Auth Header not found" };
     }
     try{
-        const jwtToken: string = authHeader.split(" ")[1];
-        result.authenticated = jwtVerifyAccessToken(jwtToken);
+        result.authenticated = jwtVerifyAccessToken(requestBody.token);
         return { jsonBody: result };
     }catch{
-        return { jsonBody: `jwt code error ${authHeader}` };
+        return { jsonBody: `jwt code error` };
     }
 
 };
