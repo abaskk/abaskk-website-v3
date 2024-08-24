@@ -6,7 +6,7 @@ export async function warmUpTrigger(myTimer: Timer): Promise<void> {
 }
 
 app.timer('warmUp', {
-    // runs every 5 minutes
-    schedule: '0 */5 * * * *',  
+    // runs every 1 minute
+    schedule: '0 */1 * * * *',  
     handler: warmUpTrigger
 });
